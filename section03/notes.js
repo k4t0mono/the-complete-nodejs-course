@@ -2,8 +2,6 @@
 
 const fs = require('fs');
 
-console.log("Starting notes.js");
-
 var fetchNotes = () => {
 	try {
 		return JSON.parse(fs.readFileSync('notes-data.json'));
@@ -33,7 +31,7 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-	console.log('Getting all notes:');
+	return fetchNotes();
 };
 
 var getNote = (title) => {
