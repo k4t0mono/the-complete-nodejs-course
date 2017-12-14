@@ -8,6 +8,6 @@ request({
 	},
 
 	(error, reponse, body) => {
-		console.log(body);
+		console.log(JSON.stringify(body, undefined, 2));
 	}
 );
