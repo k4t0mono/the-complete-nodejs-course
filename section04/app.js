@@ -7,7 +7,9 @@ request({
 		json: true
 	},
 
-	(error, reponse, body) => {
-		console.log(JSON.stringify(body, undefined, 2));
+	(error, response, body) => {
+		var result = body.results[0];
+		console.log(`Address: ${result.formatted_address}`);
+		console.log(`Lat: ${result.geometry.location.lat} Lng: ${result.geometry.location.lng}`);
 	}
 );
