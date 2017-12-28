@@ -9,6 +9,8 @@
   "author": "KatoMono Enkeli",
   "license": "ISC",
   "dependencies": {
-    "request": "^2.83.0"
+    "nodemon": "^1.14.3",
+    "request": "^2.83.0",
+    "yargs": "^10.0.3"
   }
 }
