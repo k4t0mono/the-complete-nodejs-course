@@ -24,8 +24,19 @@ request({
 	},
 
 	(error, response, body) => {
-		var result = body.results[0];
-		console.log(`Address: ${result.formatted_address}`);
-		console.log(`Lat: ${result.geometry.location.lat} Lng: ${result.geometry.location.lng}`);
+		if(error) {
+			console.log('Unable to connect to Google servers.');
+
+		} else if(body.status === 'ZERO_RESULTS') {
+			console.log('Unable to find address.');
+
+		} else if(body.status === 'OK') {
+			var result = body.results[0];
+			console.log(`Address: ${result.formatted_address}`);
+			console.log(`Lat: ${result.geometry.location.lat} Lng: ${result.geometry.location.lng}`);
+
+		} else {
+			console.log('Heeeeeelp me, pleeeese!!! ;w;');
+		}
 	}
 );
