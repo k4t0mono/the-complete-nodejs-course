@@ -1,16 +1,15 @@
 // app.js
 
 const yargs = require('yargs');
-const axios = require('axios');
 
-const config = require('./util/config.js');
+const weather = require('./weather/weather.js');
 
 const argv = yargs
 	.options({
 		address: {
 			demand: true,
 			alias: 'a',
-			describe: 'Addres to fetch weather for',
+			describe: 'Address to fetch weather for',
 			string: true
 		}
 	})
@@ -18,40 +17,14 @@ const argv = yargs
 	.alias('help', 'h')
 	.argv;
 
-var address = encodeURIComponent(argv.address);
-var geocodeURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.GOOGLE_API_KEY}`;
-
-axios.get(geocodeURL).then(
-	(response) => {
-		if(response.data.status === 'ZERO_RESULTS') {
-			throw new Error('Unable to find that address');			
-		}
-		
-		console.log(response.data.results[0].formatted_address);
-
-		var location = response.data.results[0].geometry.location;
-		var lat = location.lat;
-		var lng = location.lng;
-		var weatherURL = `https://api.darksky.net/forecast/${config.DARKSKY_API_KEY}/${lat},${lng}?units=si`;
-		return axios.get(weatherURL);
-	}
-).then(
-	(response) => {
-		var currently = response.data.currently;
-		console.log(
-			`Temperatura: ${currently.temperature} °C\n`
-			+ `Sensção térmica: ${currently.apparentTemperature} °C\n`
-			+ `Ponto de orvalho: ${currently.dewPoint} °C\n`
-			+ `Humidade: ${currently.humidity*100}%`
-
-		);
-	}
-).catch(
-	(e) => {
-		if(e.code === 'ENOTFOUND') {
-			console.log('Unable to connect to API server.');
-		} else {
-			console.log(e.message);	
-		}
-	}
-);
+weather.getCurrent(argv.address, (response) => {
+	console.log(
+		`${response.address}\n`
+		+ `Temperature: ${response.temperature} °C\n`
+		+ `Apparent temperature: ${response.apparentTemperature} °C\n`
+		+ `Dew point: ${response.dewPoint} °C\n`
+		+ `Humidity: ${response.humidity*100}%\n`
+		+ `Pressure: ${response.pressure} hPa\n`
+		+ `Wind speed: ${response.windSpeed} Km/h\n`
+	);
+});
