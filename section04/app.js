@@ -3,6 +3,9 @@
 const yargs = require('yargs');
 const request = require('request');
 
+const weather = require('./weather/weather.js');
+const config = require('./util/config.js');
+
 const argv = yargs
 	.options({
 		address: {
@@ -16,3 +19,4 @@ const argv = yargs
 	.alias('help', 'h')
 	.argv;
 
+console.log(config);
