@@ -4,6 +4,7 @@ const yargs = require('yargs');
 const request = require('request');
 
 const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
 
 const argv = yargs
 	.options({
@@ -18,26 +19,24 @@ const argv = yargs
 	.alias('help', 'h')
 	.argv;
 
-request({
-	url: 'https://api.darksky.net/forecast/636e7965c828c7815aa160dfd2572a10/-20.8904,-45.280?units=si',
-	json: true
-	},
-	
-	(error, response, body) => {
-		if(!error && response.statusCode === 200) {
-			console.log(`${body.currently.temperature} °C`);
+geocode.geocodeAddress(argv.address, (errorMsg, results) => {
+	if(errorMsg) {
+		console.log(errorMsg);
+	} else {
+		console.log(results.address);
 
-		} else {
-			console.log('Unable to connect to Forecasr.io server.');
-		}
+		weather.getWeather(results.latitude, results.longitude, (errorMsg1, results1) => {
+			if(errorMsg1) {
+				console.log(errorMsg1);
+			} else {
+				console.log(
+					`Temperatura: ${results1.temperature} °C\n`
+					+ `Sensção térmica: ${results1.apparentTemperature} °C\n`
+					+ `Ponto de orvalho: ${results1.dewPoint} °C\n`
+					+ `Humidade: ${results1.humidity*100}%`
+				);
+			}
+		});
 	}
-);
-
-//geocode.geocodeAddress(argv.address, (errorMsg, results) => {
-	//if(errorMsg) {
-		//console.log(errorMsg);
-	//} else {
-		//console.log(JSON.stringify(results, undefined, 2));
-	//}
-//});
+});
 
