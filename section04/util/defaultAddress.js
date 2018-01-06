@@ -23,7 +23,21 @@ var set = (address) => {
 }
 
 var get = () => {
+	return new Promise((resolve, reject) => {
+		try {
+			var configFile = toml.parse(fs.readFileSync('./config.toml'));
+			var address = configFile.defaultAddress;
+		} catch(e) {
+			reject(e);
+		}
 
+		if(address) {
+			resolve(address);
+
+		} else {
+			reject('Default address not setted');
+		}
+	});
 }
 
 module.exports = {

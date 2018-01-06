@@ -47,4 +47,21 @@ var getCurrent = (address, callback) => {
 	);
 }
 
-module.exports = { getCurrent };
+var getCurrentFormated = (address, callback) => {
+	getCurrent(address, (response) => {
+		callback(
+			`${response.address}\n`
+			+ `Temperature: ${response.temperature} °C\n`
+			+ `Apparent temperature: ${response.apparentTemperature} °C\n`
+			+ `Dew point: ${response.dewPoint} °C\n`
+			+ `Humidity: ${response.humidity*100}%\n`
+			+ `Pressure: ${response.pressure} hPa\n`
+			+ `Wind speed: ${response.windSpeed} Km/h\n`
+		);
+	});
+}
+
+module.exports = { 
+	getCurrent,
+	getCurrentFormated
+};
