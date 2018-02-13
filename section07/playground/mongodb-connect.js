@@ -9,18 +9,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
 	console.log('Connected to MongoDB Server');
 	
-	//db.collection('Todos').insertOne({
-		//text: 'Something to do',
-		//completed: false
-
-	//}, (err, result) => {
-		//if(err) {
-			//return console.log('Unable to inserte todo');
-		//}
-
-		//console.log(JSON.stringify(result.ops, undefined, 2));
-	//});
-	
 	db.collection('Users').insertOne({
 		name: 'KatoMono Enkeli',
 		age: 19,
