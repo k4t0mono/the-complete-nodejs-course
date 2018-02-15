@@ -11,14 +11,14 @@ describe('App', () => {
 	};
 	app.__set__('db', db);
 
-	it('should call the spy correctly', () => {
+	test('should call the spy correctly', () => {
 		var spy = expect.createSpy();
 		spy();
 		expect(spy).toHaveBeenCalled();
 	});
 
 
-	it('should call `saveUser` with user object', () => {
+	test('should call `saveUser` with user object', () => {
 		var email = 'k4t0mono@terminus.io';
 		var password = '1234asdf';
 

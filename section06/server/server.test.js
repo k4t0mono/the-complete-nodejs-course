@@ -9,7 +9,7 @@ describe('Sever', () => {
 	
 	describe('GET /', () => {
 
-		it('should return hello world response', (done) => {
+		test('should return hello world response', (done) => {
 			request(app)
 				.get('/')
 				.expect(404)
@@ -25,7 +25,7 @@ describe('Sever', () => {
 	
 	describe('GET /users', () => {
 
-		it('should include KatoMono in users', (done) => {
+		test('should include KatoMono in users', (done) => {
 			request(app)
 				.get('/users')
 				.expect(200)
