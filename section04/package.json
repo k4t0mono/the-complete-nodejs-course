@@ -10,10 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
-    "nodemon": "^1.14.3",
-    "request": "^2.83.0",
+    "nodemon": "^1.17.5",
+    "request": "^2.87.0",
     "toml": "^2.3.3",
     "tomlify-j0.4": "^3.0.0",
-    "yargs": "^10.0.3"
+    "yargs": "^10.1.2"
   }
 }
