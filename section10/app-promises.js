@@ -28,6 +28,11 @@ const grades = [
 		id: 1,
 		school_id: 101,
 		grade: 44
+	},
+	{
+		id: 77,
+		school_id: 101,
+		grade: 100
 	}
 ];
 
@@ -67,6 +72,17 @@ const get_status = (user_id) => {
 	});
 };
 
-get_status(4)
-	.then((status) => console.log(status))
-	.catch((e) => console.log(e));
+const get_status_alt = async (user_id) => {
+	const user = await get_user(user_id);
+	const grades = await get_grades(user.school_id);
+
+	let avg = 0;
+	if(grades.length) 
+		avg = grades.map((g) => g.grade).reduce((a, b) => a + b) / grades.length;
+
+	return `${user.name} has a grade of ${avg}%.`
+};
+
+get_status_alt(1).then((r) => {
+	console.log(r);
+}).catch((e) => console.log(e));
