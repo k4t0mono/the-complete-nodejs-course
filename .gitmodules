@@ -1,6 +1,9 @@
 [submodule "section07"]
 	path = section07
-	url = git@github.com:k4t0mono/node-todo-api.git
+	url = git@gitlab.com:k4t0mono/node-todo-api.git
 [submodule "section08"]
 	path = section08
-	url = git@github.com:k4t0mono/node-todo-api.git
+	url = git@gitlab.com:k4t0mono/node-todo-api.git
+[submodule "section09"]
+	path = section09
+	url = git@gitlab.com:k4t0mono/node-socket-io.git
