@@ -25,11 +25,18 @@ const get_countries = async (currency) => {
 	return response.data.map((c) => c.name);
 };
 
+const convert_currency = async (from, to, amount) => {
+	const rate = await get_extenge_rate(from, to);
+	const converted = (amount * rate).toFixed(3);
 
-get_extenge_rate('BRL', 'ARS')
-	.then((r) => console.log(r))
-	.catch((e) => console.log(e));
+	const countries = await get_countries(to);
 
-get_countries('BOB')
+	const s = `${amount.toFixed(3)} ${from} is worth ${converted} ${to}.` +
+		`You can it spend on: ${countries.join(', ')}`;
+
+	return s;
+};
+
+convert_currency('ARS', 'BRL', 500)
 	.then((r) => console.log(r))
 	.catch((e) => console.log(e));
